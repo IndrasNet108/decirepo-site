@@ -76,10 +76,18 @@
       const originRegistry = decision && decision.artifact ? decision.artifact.origin_registry : "N/A";
       const source = verification ? verification.source : "N/A";
       const reason = verification && verification.reason ? verification.reason : "N/A";
+      const verifiedAtUtc = new Date().toISOString();
+      const verifierNode = verification && verification.origin_registry
+        ? verification.origin_registry
+        : (originRegistry || window.DeciRepoData.LOCAL_REGISTRY_ID || "N/A");
 
       const data = valid
         ? {
             Decision_ID: `${visualId} (${decision.id})`,
+            Protocol_Version: "DeciRepo v0.1",
+            Verification_Result: "MATCH",
+            Verified_At_UTC: verifiedAtUtc,
+            Verifier_Node: verifierNode,
             Origin_Registry: originRegistry,
             Artifact_Hash: decision.artifact.artifact_hash,
             Rebuild_Result: verification.rebuild_result || decision.artifact.rebuild_status,
@@ -90,6 +98,10 @@
           }
         : {
             Decision_ID: visualId,
+            Protocol_Version: "DeciRepo v0.1",
+            Verification_Result: "FAIL",
+            Verified_At_UTC: verifiedAtUtc,
+            Verifier_Node: verifierNode,
             Origin_Registry: originRegistry,
             Artifact_Hash: query || "N/A",
             Rebuild_Result: "NO MATCH",

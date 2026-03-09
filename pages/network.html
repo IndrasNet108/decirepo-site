@@ -28,6 +28,7 @@
 
       <section class="panel">
         <h2 class="section-title">Connected Registries</h2>
+        <p class="section-subtitle">Demo registries are marked as simulated connections.</p>
         <table class="lineage-table" role="grid">
           <thead>
             <tr>
@@ -201,20 +202,24 @@
     async function renderNetworkRegistries(network) {
       const body = document.getElementById("network-registries-body");
       const rows = [];
+      const localRegistryId = window.DeciRepoData.LOCAL_REGISTRY_ID;
 
       for (const registry of network.connected_registries || []) {
         const manifest = await loadManifest(registry.node_endpoint || registry.manifest_endpoint);
         const protocolVersion = manifest && manifest.protocol_version ? manifest.protocol_version : "N/A";
         const signatureState = manifest && manifest.signature && manifest.signature.value ? "present" : "missing";
         const status = manifest && manifest.status ? manifest.status : (registry.status || "unknown");
+        const isDemo = String(registry.registry_id || "").toLowerCase() !== String(localRegistryId || "").toLowerCase();
+        const registryLabel = isDemo ? `${registry.registry_id} (demo)` : registry.registry_id;
+        const renderedStatus = isDemo ? `${status} (simulated)` : status;
         rows.push(`
           <tr>
-            <td>${registry.registry_id}</td>
+            <td>${registryLabel}</td>
             <td class="kv-value mono">${registry.verify_endpoint}</td>
             <td class="kv-value mono">${registry.manifest_endpoint || registry.node_endpoint || "N/A"}</td>
             <td>${protocolVersion}</td>
             <td>${signatureState}</td>
-            <td>${status}</td>
+            <td>${renderedStatus}</td>
           </tr>
         `);
       }
