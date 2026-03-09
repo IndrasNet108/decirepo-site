@@ -21,7 +21,7 @@
         <p class="section-subtitle">Connected registries, signed manifests, and cross-registry verification graph.</p>
         <div class="button-row tight">
           <a class="btn" href="../api/network.json">Network API</a>
-          <a class="btn" href="../api/verification-graph">Verification Graph API</a>
+          <a class="btn" href="../api/verification-graph.json">Verification Graph API</a>
           <a class="btn" href="../FEDERATION_HANDSHAKE_V0_1.md">Handshake Spec</a>
         </div>
       </section>
@@ -52,7 +52,7 @@
           </label>
           <div></div>
           <div class="policy-run-cell">
-            <a class="btn" href="../api/verification-graph">Open Graph API</a>
+            <a class="btn" href="../api/verification-graph.json">Open Graph API</a>
           </div>
         </div>
         <table class="lineage-table" role="grid">
@@ -133,7 +133,7 @@
     }
 
     async function loadTrustEvents() {
-      const candidates = ["../api/trust-events", "../api/trust-events.json"];
+      const candidates = ["../api/trust-events.json", "../api/trust-events"];
       for (const url of candidates) {
         try {
           const res = await fetch(url, { cache: "no-store" });
@@ -148,7 +148,7 @@
     }
 
     async function loadVerificationGraph() {
-      const candidates = ["../api/verification-graph", "../api/verification-graph.json"];
+      const candidates = ["../api/verification-graph.json", "../api/verification-graph"];
       for (const url of candidates) {
         try {
           const res = await fetch(url, { cache: "no-store" });

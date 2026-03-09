@@ -118,7 +118,7 @@
             </thead>
             <tbody id="precedent-body"></tbody>
           </table>
-          <div id="precedent-meta" class="precedent-meta">Loading precedents...</div>
+          <div id="precedent-meta" class="precedent-meta">Initializing precedent index...</div>
           <div id="precedent-summary" class="kv-stack"></div>
         </section>
 
@@ -139,7 +139,7 @@
           <div class="button-row">
             <button id="action-lineage" class="btn small" type="button">Open Lineage</button>
             <button id="action-use-reference" class="btn small btn-gold" type="button">Use as reference</button>
-            <a id="action-report" class="btn small" href="../api/precedent-search-report" target="_blank">OPEN REPORT</a>
+            <a id="action-report" class="btn small" href="../api/precedent-search-report.json" target="_blank">OPEN REPORT</a>
           </div>
           <div id="precedent-action-note" class="precedent-meta">Select a row to enable actions.</div>
         </aside>
@@ -150,7 +150,7 @@
         <div id="precedent-scoring-model" class="kv-stack">
           <div class="kv-line">
             <div class="kv-key">Status</div>
-            <div class="kv-value">Loading /api/precedent-search</div>
+            <div class="kv-value">Initializing /api/precedent-search.json</div>
           </div>
           <div class="kv-line">
             <div class="kv-key">Safety Boundary</div>
@@ -658,7 +658,7 @@
     }
 
     async function loadRemoteSpec() {
-      const urls = ["../api/precedent-search", "../api/precedent-search.json"];
+      const urls = ["../api/precedent-search.json", "../api/precedent-search"];
       for (const url of urls) {
         try {
           const response = await fetch(url, { cache: "no-store" });

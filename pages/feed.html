@@ -86,7 +86,7 @@
           </thead>
           <tbody id="feed-body"></tbody>
         </table>
-        <div class="feed-meta" id="feed-meta">Loading feed...</div>
+        <div class="feed-meta" id="feed-meta">Initializing verified feed...</div>
       </section>
     </main>
 
@@ -170,7 +170,7 @@
     }
 
     async function loadFeed() {
-      const candidates = ["../api/feed", "../api/feed.json"];
+      const candidates = ["../api/feed.json", "../api/feed"];
       for (const url of candidates) {
         try {
           const res = await fetch(url, { cache: "no-store" });

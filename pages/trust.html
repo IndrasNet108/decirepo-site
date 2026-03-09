@@ -58,7 +58,7 @@
           </label>
           <div></div>
           <div class="policy-run-cell">
-            <a class="btn" href="../api/trust-score">Open Trust Score API</a>
+            <a class="btn" href="../api/trust-score.json">Open Trust Score API</a>
           </div>
         </div>
         <table class="lineage-table" role="grid">
@@ -120,7 +120,7 @@
     }
 
     async function loadTrust() {
-      const candidates = ["../api/trust", "../api/trust.json"];
+      const candidates = ["../api/trust.json", "../api/trust"];
       for (const url of candidates) {
         try {
           const res = await fetch(url, { cache: "no-store" });
@@ -135,7 +135,7 @@
     }
 
     async function loadTrustScores() {
-      const candidates = ["../api/trust-score", "../api/trust-score.json"];
+      const candidates = ["../api/trust-score.json", "../api/trust-score"];
       for (const url of candidates) {
         try {
           const res = await fetch(url, { cache: "no-store" });

@@ -32,7 +32,7 @@
           ${item("Trust", "./trust.html", activeItem === "trust")}
           ${item("Root of Trust", "./root-of-trust.html", activeItem === "root-of-trust")}
           ${item("Protocol", "./protocol.html", activeItem === "protocol")}
-          ${item("API", "../api/feed", activeItem === "api")}
+          ${item("API", "../api/feed.json", activeItem === "api")}
         </nav>
       </header>
       <div class="header-divider"></div>

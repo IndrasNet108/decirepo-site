@@ -83,8 +83,8 @@
           <button id="btn-rebuild" class="btn" type="button">Rebuild</button>
           <button id="btn-compare" class="btn" type="button">Compare</button>
           <button id="btn-policy-impact" class="btn" type="button">Policy Impact</button>
-          <a id="btn-divergence-report" class="btn" href="../api/divergence-investigation-report" target="_blank" style="display:none">OPEN DIVERGENCE REPORT</a>
-          <a id="btn-audit-package" class="btn" href="../api/audit-package" target="_blank">AUDIT PACKAGE</a>
+          <a id="btn-divergence-report" class="btn" href="../api/divergence-investigation-report.json" target="_blank" style="display:none">OPEN DIVERGENCE REPORT</a>
+          <a id="btn-audit-package" class="btn" href="../api/audit-package.json" target="_blank">AUDIT PACKAGE</a>
         </div>
       </section>
     </main>
@@ -176,7 +176,7 @@
             <div class="kv-line"><div class="kv-key">Outcome Type</div><div class="kv-value">${explanation.decision_outcome.exception_type}</div></div>
           </div>
           <div class="button-row tight">
-            <a class="btn small" href="../api/decision-explanation" target="_blank">OPEN EXPLANATION</a>
+            <a class="btn small" href="../api/decision-explanation.json" target="_blank">OPEN EXPLANATION</a>
           </div>
         `;
       } catch (e) {
@@ -233,7 +233,7 @@
             <div class="kv-line"><div class="kv-key">Divergent Cases</div><div class="kv-value mono">${data.divergent_decisions.length}</div></div>
           </div>
           <div class="button-row tight">
-            <a class="btn small" href="../api/divergence-investigation-report" target="_blank">VIEW FULL INVESTIGATION</a>
+            <a class="btn small" href="../api/divergence-investigation-report.json" target="_blank">VIEW FULL INVESTIGATION</a>
           </div>
         `;
         if (reportBtn) reportBtn.style.display = "inline-flex";
@@ -258,7 +258,7 @@
             <div class="kv-line"><div class="kv-key">Summary</div><div class="kv-value">Total: ${report.result_summary.total_precedents} (Approved: ${report.result_summary.approved}, Rejected: ${report.result_summary.rejected})</div></div>
           </div>
           <div class="button-row tight">
-            <a class="btn small" href="../api/precedent-search-report" target="_blank">OPEN REPORT</a>
+            <a class="btn small" href="../api/precedent-search-report.json" target="_blank">OPEN REPORT</a>
             <a class="btn small" href="./diff.html?left=${decisionId}&right=${report.selected_precedent}">COMPARE</a>
             <a class="btn small" href="./verify.html?id=${report.selected_precedent}">VERIFY</a>
             <a class="btn small" href="./lineage.html?id=${report.selected_precedent}">OPEN LINEAGE</a>
