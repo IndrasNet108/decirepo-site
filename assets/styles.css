@@ -184,6 +184,13 @@ a {
   color: var(--text-white);
 }
 
+.proof-strip-note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--secondary-gray);
+  letter-spacing: 0.02em;
+}
+
 .proof-strip-meta {
   margin: 0;
   font-size: 13px;
@@ -1127,6 +1134,19 @@ a {
 .banner.invalid {
   color: var(--rejected);
   border-color: rgba(214, 84, 84, 0.6);
+}
+
+.verify-hint {
+  border: 1px solid var(--divider);
+  background: #141416;
+  color: var(--secondary-gray);
+  padding: 8px 10px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.verify-hint.mono {
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 .feed-page {
