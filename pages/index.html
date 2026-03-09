@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <title>DeciRepo — Public Decision Registry</title>
   <link rel="stylesheet" href="../assets/styles.css" />
 </head>
@@ -12,11 +17,39 @@
 
     <main class="page-index">
       <section class="title-block">
-        <h1 class="title-main">Public Decision Registry</h1>
-        <p class="title-sub">Verified decision artifacts recorded with DLX</p>
+        <h1 class="title-main">DeciRepo</h1>
+        <p class="title-sub">A protocol for verifying institutional decisions by deterministic recomputation.</p>
       </section>
 
       <section class="panel index-hero-panel after-title-gap">
+        <h2 class="section-title">Core Primitive: verify(decision_id)</h2>
+        <p class="section-subtitle">Any compatible node can recompute the same decision artifact and return MATCH or FAIL.</p>
+        <div class="code-block">$ decirepo verify DR-GENESIS-0001
+MATCH
+validator=PASS
+rebuild=MATCH</div>
+        <div class="button-row tight">
+          <a class="btn btn-gold" href="./verify.html?q=DR-GENESIS-0001">Verify a Decision</a>
+          <a class="btn" href="../api/decision/DR-GENESIS-0001.json">Open Genesis Artifact</a>
+          <a class="btn" href="./protocol.html">Read Protocol</a>
+        </div>
+        <div class="kv-stack">
+          <div class="kv-line">
+            <div class="kv-key">Genesis Artifact</div>
+            <div class="kv-value mono">DR-GENESIS-0001</div>
+          </div>
+          <div class="kv-line">
+            <div class="kv-key">Node Role</div>
+            <div class="kv-value">Anyone can run a mirror verifier node and independently verify decisions.</div>
+          </div>
+          <div class="kv-line">
+            <div class="kv-key">Why Not Blockchain</div>
+            <div class="kv-value">DeciRepo does not rely on consensus; verification is performed by independent recomputation.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel index-hero-panel">
         <h2 class="section-title">Live Decision Registry</h2>
         <div class="search-row">
           <input id="index-search-input" class="verify-input" type="text" placeholder="Search decisions..." />
@@ -76,7 +109,7 @@
           <a class="menu-link" href="./root-of-trust.html">Root of Trust</a>
           <a class="menu-link" href="./protocol.html">Protocol</a>
           <a class="menu-link" href="../api/feed">API</a>
-          <a class="menu-link" href="#">GitHub</a>
+          <a class="menu-link" href="https://github.com/IndrasNet108/decirepo" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </section>
     </main>
