@@ -64,9 +64,8 @@ a {
 
 .brand-subline {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  gap: 8px;
+  grid-auto-flow: row;
+  gap: 2px;
   align-items: center;
 }
 
@@ -74,18 +73,6 @@ a {
   height: 28px;
   width: auto;
   display: block;
-}
-
-.brand-logo-dlx {
-  height: 16px;
-  width: auto;
-  display: block;
-}
-
-.brand-sep {
-  color: var(--secondary-gray);
-  font-size: 14px;
-  white-space: nowrap;
 }
 
 .brand-registry {
@@ -154,6 +141,24 @@ a {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.hero-lines {
+  display: grid;
+  gap: 8px;
+}
+
+.hero-line {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: normal;
+}
+
+.hero-line.mono {
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 16px;
+  color: var(--accent-gold);
 }
 
 .after-title-gap {
@@ -306,6 +311,12 @@ a {
   grid-auto-flow: column;
   grid-auto-columns: max-content;
   gap: 20px;
+}
+
+.repo-links-wrap {
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  gap: 8px;
 }
 
 .page-lineage {
@@ -610,6 +621,52 @@ a {
   max-width: 900px;
 }
 
+.section-wrap {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+.section-title-small {
+  font-size: 18px;
+}
+
+.arch-flow {
+  display: grid;
+  gap: 8px;
+}
+
+.arch-step {
+  border: 1px solid var(--divider);
+  background: #141416;
+  padding: 10px 12px;
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+
+.arch-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--divider);
+}
+
+.arch-compare-head {
+  background: #151516;
+  border-bottom: 1px solid var(--divider);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--secondary-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.arch-compare-cell {
+  padding: 10px 12px;
+  border-top: 1px solid var(--divider);
+  font-size: 14px;
+}
+
 .repo-table {
   width: 100%;
   border-collapse: collapse;
@@ -765,7 +822,7 @@ a {
   color: var(--secondary-gray);
   font-size: 13px;
   display: grid;
-  gap: 6px;
+  gap: 8px;
 }
 
 .footer-brand {
@@ -790,6 +847,33 @@ a {
   color: #7f8796;
   font-size: 12px;
   letter-spacing: 0.03em;
+}
+
+.footer-engine {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: 10px;
+  align-items: center;
+}
+
+.footer-dlx-logo {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+
+.footer-engine-text {
+  color: #b7c8ff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
 }
 
 .page-decision,

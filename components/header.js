@@ -16,9 +16,7 @@
             <span class="brand-registry">DeciRepo</span>
           </div>
           <div class="brand-subline">
-            <img class="brand-logo-dlx" src="../assets/brand/dlx-logo-header.png" alt="DLX logo" />
-            <span class="brand-sep">|</span>
-            <span class="brand-sub">Decisions compiled by DLX</span>
+            <span class="brand-sub">Powered by DLX deterministic engine</span>
           </div>
         </div>
         <nav class="header-menu" aria-label="Primary">
