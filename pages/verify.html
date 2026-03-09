@@ -94,6 +94,15 @@
       const decisionRecordUri = decision && decision.artifact && decision.artifact.decision_record_uri
         ? decision.artifact.decision_record_uri
         : null;
+      const artifactSha256Uri = decision && decision.artifact && decision.artifact.artifact_sha256_uri
+        ? decision.artifact.artifact_sha256_uri
+        : null;
+      const artifactFileSha256 = decision && decision.artifact && decision.artifact.artifact_file_sha256
+        ? decision.artifact.artifact_file_sha256
+        : "N/A";
+      const evidenceManifestUri = decision && decision.artifact && decision.artifact.evidence_manifest_uri
+        ? decision.artifact.evidence_manifest_uri
+        : null;
       const recomputeTarget = artifactLocalPath || "artifact envelope path not published";
 
       const data = valid
@@ -104,9 +113,13 @@
             Verified_At_UTC: verifiedAtUtc,
             Verifier_Node: verifierNode,
             Origin_Registry: originRegistry,
-            Hash_SHA256: artifactHash,
+            Rebuild_Result_Hash: decision.artifact.rebuild_result_hash || artifactHash,
+            Artifact_Hash_Semantics: decision.artifact.artifact_hash_semantics || "artifact_hash",
+            Artifact_File_SHA256: artifactFileSha256,
             Artifact_Envelope_URI: artifactPublicUri || "N/A",
+            Artifact_Envelope_SHA256_URI: artifactSha256Uri || "N/A",
             Decision_Record_URI: decisionRecordUri || "N/A",
+            Evidence_Manifest_URI: evidenceManifestUri || "N/A",
             Rebuild_Result: verification.rebuild_result || decision.artifact.rebuild_status,
             Validator: verification.validator || decision.artifact.validator_result,
             Environment: verification.environment || "DLX v1.0",
@@ -120,7 +133,7 @@
             Verified_At_UTC: verifiedAtUtc,
             Verifier_Node: verifierNode,
             Origin_Registry: originRegistry,
-            Hash_SHA256: artifactHash,
+            Rebuild_Result_Hash: artifactHash,
             Artifact_Envelope_URI: artifactPublicUri || "N/A",
             Decision_Record_URI: decisionRecordUri || "N/A",
             Rebuild_Result: "NO MATCH",
@@ -132,7 +145,10 @@
           };
 
       const rows = Object.entries(data).map(([k, v]) => ({ key: k, value: String(v) }));
-      resultRoot.innerHTML = window.DeciRepoDecisionBlock.renderStack(rows, ["Hash_SHA256", "Artifact_Envelope_URI", "Decision_Record_URI"]);
+      resultRoot.innerHTML = window.DeciRepoDecisionBlock.renderStack(
+        rows,
+        ["Rebuild_Result_Hash", "Artifact_File_SHA256", "Artifact_Envelope_URI", "Artifact_Envelope_SHA256_URI", "Decision_Record_URI", "Evidence_Manifest_URI"]
+      );
       hintRoot.textContent = `Recompute locally: node dlx-ref/cli.js verify ${recomputeTarget}`;
     }
 

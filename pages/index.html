@@ -323,23 +323,25 @@ rebuild=MATCH</div>
     latestBanner.style.display = "block";
     latestResult.innerHTML = window.DeciRepoDecisionBlock.renderStack(
       window.DeciRepoDecisionBlock.toRows({
-        artifact_hash: genesisDecision.artifact.artifact_hash,
+        rebuild_result_hash: genesisDecision.artifact.rebuild_result_hash || genesisDecision.artifact.artifact_hash,
+        artifact_file_sha256: genesisDecision.artifact.artifact_file_sha256 || "N/A",
         validator: genesisDecision.artifact.validator_result,
         rebuild_result: genesisDecision.artifact.rebuild_status,
         policy_version: genesisDecision.policyVersion
       }),
-      ["artifact_hash"]
+      ["rebuild_result_hash", "artifact_file_sha256"]
     );
 
     const networkGenesis = document.getElementById("network-genesis-preview");
     networkGenesis.innerHTML = window.DeciRepoDecisionBlock.renderStack(
       window.DeciRepoDecisionBlock.toRows({
         artifact: genesisDecision.id,
-        artifact_hash: genesisDecision.artifact.artifact_hash,
+        rebuild_result_hash: genesisDecision.artifact.rebuild_result_hash || genesisDecision.artifact.artifact_hash,
+        artifact_file_sha256: genesisDecision.artifact.artifact_file_sha256 || "N/A",
         status: "VERIFIED",
         nodes: "1 canonical node · 1 independent verifier (starting)"
       }),
-      ["artifact_hash"]
+      ["rebuild_result_hash", "artifact_file_sha256"]
     );
 
     const impactBase = window.DeciRepoData.getDecisionById("DR-0007");
