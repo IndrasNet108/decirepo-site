@@ -161,6 +161,40 @@ a {
   color: var(--accent-gold);
 }
 
+.proof-strip {
+  border: 1px solid var(--divider);
+  background: #141416;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.proof-strip-title {
+  margin: 0;
+  font-size: 12px;
+  color: var(--secondary-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.proof-strip-line {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-white);
+}
+
+.proof-strip-meta {
+  margin: 0;
+  font-size: 13px;
+  color: var(--secondary-gray);
+}
+
+.proof-strip-link {
+  color: var(--accent-gold);
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
 .after-title-gap {
   margin-top: 48px;
 }
