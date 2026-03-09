@@ -85,7 +85,16 @@
       const artifactHash = decision && decision.artifact && decision.artifact.artifact_hash
         ? decision.artifact.artifact_hash
         : (query || "N/A");
-      const recomputeTarget = decision && decision.id ? decision.id : (query || "DR-GENESIS-0001");
+      const artifactLocalPath = decision && decision.artifact && decision.artifact.artifact_local_path
+        ? decision.artifact.artifact_local_path
+        : null;
+      const artifactPublicUri = decision && decision.artifact && decision.artifact.artifact_public_uri
+        ? decision.artifact.artifact_public_uri
+        : null;
+      const decisionRecordUri = decision && decision.artifact && decision.artifact.decision_record_uri
+        ? decision.artifact.decision_record_uri
+        : null;
+      const recomputeTarget = artifactLocalPath || "artifact envelope path not published";
 
       const data = valid
         ? {
@@ -96,6 +105,8 @@
             Verifier_Node: verifierNode,
             Origin_Registry: originRegistry,
             Hash_SHA256: artifactHash,
+            Artifact_Envelope_URI: artifactPublicUri || "N/A",
+            Decision_Record_URI: decisionRecordUri || "N/A",
             Rebuild_Result: verification.rebuild_result || decision.artifact.rebuild_status,
             Validator: verification.validator || decision.artifact.validator_result,
             Environment: verification.environment || "DLX v1.0",
@@ -110,6 +121,8 @@
             Verifier_Node: verifierNode,
             Origin_Registry: originRegistry,
             Hash_SHA256: artifactHash,
+            Artifact_Envelope_URI: artifactPublicUri || "N/A",
+            Decision_Record_URI: decisionRecordUri || "N/A",
             Rebuild_Result: "NO MATCH",
             Validator: verification && verification.validator ? verification.validator : "FAIL",
             Environment: "N/A",
@@ -119,7 +132,7 @@
           };
 
       const rows = Object.entries(data).map(([k, v]) => ({ key: k, value: String(v) }));
-      resultRoot.innerHTML = window.DeciRepoDecisionBlock.renderStack(rows, ["Hash_SHA256"]);
+      resultRoot.innerHTML = window.DeciRepoDecisionBlock.renderStack(rows, ["Hash_SHA256", "Artifact_Envelope_URI", "Decision_Record_URI"]);
       hintRoot.textContent = `Recompute locally: node dlx-ref/cli.js verify ${recomputeTarget}`;
     }
 

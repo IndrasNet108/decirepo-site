@@ -50,13 +50,13 @@
       <section class="panel index-hero-panel">
         <h2 class="section-title">Core Primitive</h2>
         <p class="section-subtitle section-wrap">Any compatible node can recompute the same decision artifact and return MATCH or FAIL.</p>
-        <div class="code-block">$ decirepo verify DR-GENESIS-0001
-MATCH
-validator=PASS
+        <div class="code-block">$ node dlx-ref/cli.js verify artifacts/genesis/DR-GENESIS-0001.json
+status=PASS
 rebuild=MATCH</div>
         <div class="button-row tight">
-          <a class="btn btn-gold" href="./decision.html?id=DR-GENESIS-0001">Verify Genesis Artifact</a>
-          <a class="btn" href="../api/decision/DR-GENESIS-0001.json">Open Artifact JSON</a>
+          <a class="btn btn-gold" href="./verify.html?q=DR-GENESIS-0001">Open Verify Console</a>
+          <a class="btn" href="../artifacts/genesis/DR-GENESIS-0001.json">Open Artifact Envelope</a>
+          <a class="btn" href="../api/decision/DR-GENESIS-0001.json">Open Decision Record</a>
         </div>
       </section>
 
@@ -122,7 +122,7 @@ rebuild=MATCH</div>
           <div id="latest-decision-line" class="preview-line">DR-GENESIS-0001</div>
           <div id="latest-decision-title" class="section-subtitle section-wrap">Genesis anchor for deterministic network verification.</div>
           <div class="button-row tight">
-            <a class="btn btn-gold" href="./verify.html?q=DR-GENESIS-0001">Verify Genesis Artifact</a>
+            <a class="btn btn-gold" href="./verify.html?q=DR-GENESIS-0001">Open Verify Console</a>
             <a class="btn" href="./decision.html?id=DR-GENESIS-0001">Open Decision</a>
           </div>
           <div id="latest-verify-banner" class="banner valid">VERIFIED</div>
@@ -165,10 +165,10 @@ rebuild=MATCH</div>
 
       <section class="panel">
         <h2 class="section-title">Try Verification</h2>
-        <div class="code-block">verify(DR-GENESIS-0001)
-→ MATCH</div>
+        <div class="code-block">verify(artifacts/genesis/DR-GENESIS-0001.json)
+→ PASS + MATCH</div>
         <div class="button-row tight">
-          <a class="btn btn-gold" href="./decision.html?id=DR-GENESIS-0001">Verify Genesis Artifact</a>
+          <a class="btn btn-gold" href="./decision.html?id=DR-GENESIS-0001">Open Genesis Decision</a>
           <a class="btn" href="./verify.html?q=DR-GENESIS-0001">Open Verify Console</a>
         </div>
       </section>
