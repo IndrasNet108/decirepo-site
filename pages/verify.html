@@ -64,6 +64,16 @@
     const hintRoot = document.getElementById("verify-hint");
     let lastDecision = null;
 
+    function renderEmpty() {
+      lastDecision = null;
+      banner.textContent = "READY";
+      banner.className = "banner";
+      resultRoot.innerHTML = window.DeciRepoDecisionBlock.renderStack([
+        { key: "status", value: "Enter a decision id, short hash, or artifact hash to verify." }
+      ]);
+      hintRoot.textContent = "Recompute locally: node dlx-ref/cli.js verify <artifact-envelope-path>";
+    }
+
     function renderPending() {
       banner.textContent = "CHECKING";
       banner.className = "banner";
@@ -161,10 +171,11 @@
       return window.DeciRepoData.resolveDecision(normalized);
     }
 
-    async function verify() {
-      const query = input.value.trim();
+    async function verify(queryOverride) {
+      const query = String(queryOverride !== undefined ? queryOverride : input.value).trim();
+      input.value = query;
       if (!query) {
-        renderResult(null, { ok: false, source: "local", reason: "EMPTY_QUERY" }, "");
+        renderEmpty();
         return;
       }
 
@@ -183,16 +194,22 @@
       renderResult(decision, verification, query);
     }
 
-    button.addEventListener("click", verify);
-
-    const params = new URLSearchParams(window.location.search);
-    const preset = params.get("q") || params.get("hash") || "";
-    if (preset) {
-      input.value = preset;
-      verify();
-    } else {
-      renderResult(null, false, "");
+    function syncFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const preset = params.get("q") || params.get("hash") || "";
+      if (preset) {
+        verify(preset);
+      } else {
+        input.value = "";
+        renderEmpty();
+      }
     }
+
+    button.addEventListener("click", () => verify());
+    window.addEventListener("pageshow", syncFromUrl);
+    window.addEventListener("popstate", syncFromUrl);
+
+    syncFromUrl();
   </script>
 </body>
 </html>
