@@ -1,7 +1,8 @@
 (function () {
-  function item(label, href, active) {
+  function item(label, href, active, external = false) {
     const cls = active ? "menu-link active" : "menu-link";
-    return `<a class="${cls}" href="${href}">${label}</a>`;
+    const attrs = external ? ` target="_blank" rel="noopener noreferrer"` : "";
+    return `<a class="${cls}" href="${href}"${attrs}>${label}</a>`;
   }
 
   function mount(targetId, activeItem) {
@@ -32,7 +33,7 @@
           ${item("Trust", "./trust.html", activeItem === "trust")}
           ${item("Root of Trust", "./root-of-trust.html", activeItem === "root-of-trust")}
           ${item("Protocol", "./protocol.html", activeItem === "protocol")}
-          ${item("API", "../api/feed.json", activeItem === "api")}
+          ${item("API", "../api/feed.json", activeItem === "api", true)}
         </nav>
       </header>
       <div class="header-divider"></div>

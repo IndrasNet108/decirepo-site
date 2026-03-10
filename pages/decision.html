@@ -14,6 +14,7 @@
 <body>
   <div class="page-shell">
     <div id="header-root"></div>
+    <div id="context-nav-root"></div>
 
     <main class="page-decision">
       <section class="panel">
@@ -83,8 +84,8 @@
           <button id="btn-rebuild" class="btn" type="button">Rebuild</button>
           <button id="btn-compare" class="btn" type="button">Compare</button>
           <button id="btn-policy-impact" class="btn" type="button">Policy Impact</button>
-          <a id="btn-divergence-report" class="btn" href="../api/divergence-investigation-report.json" target="_blank" style="display:none">OPEN DIVERGENCE REPORT</a>
-          <a id="btn-audit-package" class="btn" href="../api/audit-package.json" target="_blank">AUDIT PACKAGE</a>
+          <a id="btn-divergence-report" class="btn" href="../api/divergence-investigation-report.json" target="_blank" rel="noopener noreferrer" style="display:none">Open Divergence Report</a>
+          <a id="btn-audit-package" class="btn" href="../api/audit-package.json" target="_blank" rel="noopener noreferrer">Audit Package</a>
         </div>
       </section>
     </main>
@@ -112,6 +113,7 @@
 
   <script src="../assets/data.js"></script>
   <script src="../components/header.js"></script>
+  <script src="../components/context-nav.js"></script>
   <script src="../components/decision-block.js"></script>
   <script>
     window.DeciRepoHeader.mount("header-root", "repository");
@@ -140,6 +142,27 @@
     document.getElementById("decision-header-lines").innerHTML = headerRows
       .map(([label, value]) => `<div class="decision-header-line"><span class="label">${label}:</span>${value}</div>`)
       .join("");
+
+    function mountContextNav() {
+      const verifyQuery = `◢${decision.short_hash}`;
+      const pairId = window.DeciRepoData.getPairId(decision.id);
+      window.DeciRepoContextNav.mount("context-nav-root", {
+        current: "Decision",
+        meta: decision.id,
+        hint: "Suggested next: verify the published artifact before inspecting lineage or policy impact.",
+        links: [
+          { label: "Verify Artifact", href: `./verify.html?q=${encodeURIComponent(verifyQuery)}`, primary: true },
+          { label: "Back to Repository", href: "./index.html" },
+          { label: "Lineage", href: `./lineage.html?id=${encodeURIComponent(decision.id)}` },
+          { label: "Policy Impact", href: `./policy-impact.html?id=${encodeURIComponent(decision.id)}` },
+          { label: "Compare", href: pairId ? `./diff.html?left=${encodeURIComponent(decision.id)}&right=${encodeURIComponent(pairId)}` : null },
+          { label: "Feed", href: "./feed.html" },
+          { label: "Protocol", href: "./protocol.html" }
+        ]
+      });
+    }
+
+    mountContextNav();
 
     const artifactRows = window.DeciRepoDecisionBlock.toRows({
       rebuild_result_hash: decision.artifact.rebuild_result_hash || decision.artifact.artifact_hash,
@@ -184,7 +207,7 @@
             <div class="kv-line"><div class="kv-key">Outcome Type</div><div class="kv-value">${explanation.decision_outcome.exception_type}</div></div>
           </div>
           <div class="button-row tight">
-            <a class="btn small" href="../api/decision-explanation.json" target="_blank">OPEN EXPLANATION</a>
+            <a class="btn small" href="../api/decision-explanation.json" target="_blank" rel="noopener noreferrer">Open Explanation</a>
           </div>
         `;
       } catch (e) {
@@ -212,7 +235,7 @@
             <div class="kv-line"><div class="kv-key">Outcome Diff</div><div class="kv-value"><span class="outcome-approved">${d.outcome_difference.reference_outcome}</span> vs <span class="outcome-rejected">${d.outcome_difference.divergent_outcome}</span></div></div>
           </div>
           <div class="button-row tight">
-            <a class="btn small" href="./diff.html?left=${currentId}&right=${d.decision_id}">COMPARE DIVERGENCE</a>
+            <a class="btn small" href="./diff.html?left=${currentId}&right=${d.decision_id}">Compare Divergence</a>
           </div>
         `).join("");
       } catch (e) {
@@ -241,7 +264,7 @@
             <div class="kv-line"><div class="kv-key">Divergent Cases</div><div class="kv-value mono">${data.divergent_decisions.length}</div></div>
           </div>
           <div class="button-row tight">
-            <a class="btn small" href="../api/divergence-investigation-report.json" target="_blank">VIEW FULL INVESTIGATION</a>
+            <a class="btn small" href="../api/divergence-investigation-report.json" target="_blank" rel="noopener noreferrer">View Full Investigation</a>
           </div>
         `;
         if (reportBtn) reportBtn.style.display = "inline-flex";
@@ -266,10 +289,10 @@
             <div class="kv-line"><div class="kv-key">Summary</div><div class="kv-value">Total: ${report.result_summary.total_precedents} (Approved: ${report.result_summary.approved}, Rejected: ${report.result_summary.rejected})</div></div>
           </div>
           <div class="button-row tight">
-            <a class="btn small" href="../api/precedent-search-report.json" target="_blank">OPEN REPORT</a>
-            <a class="btn small" href="./diff.html?left=${decisionId}&right=${report.selected_precedent}">COMPARE</a>
-            <a class="btn small" href="./verify.html?id=${report.selected_precedent}">VERIFY</a>
-            <a class="btn small" href="./lineage.html?id=${report.selected_precedent}">OPEN LINEAGE</a>
+            <a class="btn small" href="../api/precedent-search-report.json" target="_blank" rel="noopener noreferrer">Open Report</a>
+            <a class="btn small" href="./diff.html?left=${decisionId}&right=${report.selected_precedent}">Compare</a>
+            <a class="btn small" href="./verify.html?q=${encodeURIComponent(report.selected_precedent)}">Verify</a>
+            <a class="btn small" href="./lineage.html?id=${report.selected_precedent}">Open Lineage</a>
           </div>
         `;
       } catch (e) {

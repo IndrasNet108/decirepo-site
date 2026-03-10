@@ -14,6 +14,7 @@
 <body>
   <div class="page-shell">
     <div id="header-root"></div>
+    <div id="context-nav-root"></div>
 
     <main class="page-policy-impact">
       <section class="panel">
@@ -29,10 +30,10 @@
             <select id="new-policy" class="feed-select"></select>
           </label>
           <div class="policy-run-cell">
-            <button id="run-simulation" class="btn btn-gold" type="button">RUN SIMULATION</button>
+            <button id="run-simulation" class="btn btn-gold" type="button">Run Simulation</button>
           </div>
           <div class="policy-run-cell">
-            <button id="open-drift-report" class="btn" type="button">OPEN DRIFT REPORT</button>
+            <button id="open-drift-report" class="btn" type="button">Open Drift Report</button>
           </div>
         </div>
       </section>
@@ -112,9 +113,21 @@
 
   <script src="../assets/data.js"></script>
   <script src="../components/header.js"></script>
+  <script src="../components/context-nav.js"></script>
   <script src="../components/decision-block.js"></script>
   <script>
     window.DeciRepoHeader.mount("header-root", "policy-impact");
+    window.DeciRepoContextNav.mount("context-nav-root", {
+      current: "Policy Impact",
+      meta: "simulation",
+      hint: "Suggested next: run a simulation, then open a decision or compare a changed pair.",
+      links: [
+        { label: "Open Genesis", href: "./decision.html?id=DR-GENESIS-0001", primary: true },
+        { label: "Back to Repository", href: "./index.html" },
+        { label: "Feed", href: "./feed.html" },
+        { label: "Protocol", href: "./protocol.html" }
+      ]
+    });
 
     const decisions = (window.DeciRepoData.decisions || []).filter((decision) =>
       String(decision.policyVersion || "").startsWith("PROCUREMENT_RULES")
@@ -265,6 +278,22 @@
 
     function bindActionButtons(selected) {
       if (!selected) return;
+      const pair = window.DeciRepoData.getPairId(selected.decision.id);
+      window.DeciRepoContextNav.mount("context-nav-root", {
+        current: "Policy Impact",
+        meta: selected.decision.id,
+        hint: pair
+          ? "Suggested next: compare the paired decision, then return to the decision record."
+          : "Suggested next: return to the decision record or verify the artifact.",
+        links: [
+          { label: pair ? "Compare Pair" : "Back to Decision", href: pair ? `./diff.html?left=${encodeURIComponent(selected.decision.id)}&right=${encodeURIComponent(pair)}` : `./decision.html?id=${encodeURIComponent(selected.decision.id)}`, primary: true },
+          { label: "Decision", href: `./decision.html?id=${encodeURIComponent(selected.decision.id)}` },
+          { label: "Verify", href: `./verify.html?q=${encodeURIComponent(visualId(selected.decision))}` },
+          { label: "Lineage", href: `./lineage.html?id=${encodeURIComponent(selected.decision.id)}` },
+          { label: "Back to Repository", href: "./index.html" },
+          { label: "Feed", href: "./feed.html" }
+        ]
+      });
       openDecisionButton.onclick = () => {
         window.location.href = `./decision.html?id=${encodeURIComponent(selected.decision.id)}`;
       };
@@ -327,7 +356,7 @@
 
     runButton.addEventListener("click", runSimulation);
     openDriftReportButton.addEventListener("click", () => {
-      window.location.href = "../api/policy-drift-detection.json";
+      window.open("../api/policy-drift-detection.json", "_blank", "noopener,noreferrer");
     });
     runSimulation();
 

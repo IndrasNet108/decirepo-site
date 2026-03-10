@@ -82,7 +82,7 @@ POST /decisions
           <h3 class="section-title">Example Artifact</h3>
           <div id="publisher-example" class="kv-stack"></div>
           <div class="button-row tight">
-            <button id="publisher-verify-example" class="btn btn-gold" type="button">VERIFY</button>
+            <button id="publisher-verify-example" class="btn btn-gold" type="button">Verify</button>
             <button id="publisher-open-example" class="btn" type="button">Open Decision</button>
           </div>
         </aside>
@@ -155,7 +155,7 @@ POST /decisions
     });
 
     document.getElementById("open-api-feed").addEventListener("click", () => {
-      window.location.href = "../api/feed.json";
+      window.open("../api/feed.json", "_blank", "noopener,noreferrer");
     });
 
     document.getElementById("batch-import-simulate").addEventListener("click", () => {
