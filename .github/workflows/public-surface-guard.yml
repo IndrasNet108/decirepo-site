@@ -14,6 +14,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Checkout protocol source
+        uses: actions/checkout@v4
+        with:
+          repository: IndrasNet108/decirepo
+          path: decirepo-core
+
+      - name: Protocol exact-match guard
+        run: |
+          bash scripts/check_protocol_sync.sh decirepo-core
+
       - name: Start local static server
         run: |
           python3 -m http.server 8000 >/tmp/decirepo-site-http.log 2>&1 &
